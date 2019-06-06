@@ -23,7 +23,7 @@
             "message" => "Successfully Login!",
             "id" => $row['id'],
             "firstname" => $row['firstname'],
-            "ilastnamed" => $row['lastname'],
+            "lastnamed" => $row['lastname'],
             "password" => $row['password'],
             "email" => $row['email'],
             "position" => $row['position'],

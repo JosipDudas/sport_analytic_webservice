@@ -28,7 +28,7 @@
              "message" => "Successfully Signup!",
              "id" => $user->id,
             "firstname" => $user->firstname,
-            "ilastnamed" => $user->lastname,
+            "lastnamed" => $user->lastname,
             "password" => $user->password,
             "email" => $user->email,
             "position" => $user->position,
