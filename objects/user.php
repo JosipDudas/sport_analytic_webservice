@@ -91,8 +91,8 @@
             }
             // query to insert record
             $query = "INSERT INTO
-                        " . $this->table_name . "
-                    SET
+                        ".$this->table_name." 
+                        SET
                         id=:id, firstname=:firstname, lastname=:lastname, password=:password, email=:email, position=:position, address=:address, sex=:sex";
             // prepare query
             $stmt = $this->conn->prepare($query);
@@ -116,7 +116,6 @@
             $stmt->bindParam(":sex", $this->sex);
             // execute query
             if($stmt->execute()){
-                $this->id = $this->conn->lastInsertId();
                 return true;
             }
             return false;
