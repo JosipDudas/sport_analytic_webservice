@@ -10,8 +10,8 @@
     // prepare user object
     $user = new User($db);
     
-    $user->username = isset($_GET['email']) ? $_GET['email'] : die();
-    $user->password = isset($_GET['password']) ? $_GET['password'] : die();
+    $user->set_email(isset($_GET['email']) ? $_GET['email'] : die());
+    $user->set_password(isset($_GET['password']) ? $_GET['password'] : die());
     // read the details of user to be edited
     $stmt = $user->login();
     if($stmt->rowCount() > 0){
@@ -30,8 +30,7 @@
             "address" => $row['address'],
             "sex" => $row['sex']
         );
-    }
-    else{
+    } else{
         $user_arr=array(
             "status" => false,
             "message" => "Invalid Email or Password!",

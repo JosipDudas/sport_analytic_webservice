@@ -20,6 +20,70 @@
             $this->conn = $db;
         }
 
+        public function set_id($id) {
+            $this->id = $id;
+        }
+
+        public function set_firstname($firstname) {
+            $this->firstname = $firstname;
+        }
+
+        public function set_lastname($lastname) {
+            $this->lastname = $lastname;
+        }
+
+        public function set_password($password) {
+            $this->password = $password;
+        }
+
+        public function set_email($email) {
+            $this->email = $email;
+        }
+
+        public function set_position($position) {
+            $this->position = $position;
+        }
+
+        public function set_address($address) {
+            $this->address = $address;
+        }
+
+        public function set_sex($sex) {
+            $this->sex = $sex;
+        }
+
+        public function get_id() {
+            return $this->id;
+        }
+
+        public function get_firstname() {
+            return $this->firstname;
+        }
+
+        public function get_lastname() {
+            return $this->lastname;
+        }
+
+        public function get_password() {
+            return $this->password;
+        }
+
+        public function get_email() {
+            return $this->email;
+        }
+
+        public function get_position() {
+            return $this->position;
+        }
+
+        public function get_address() {
+            return $this->address;
+        }
+
+        public function get_sex() {
+            return $this->sex;
+        }
+
         // signup user
         function signup(){
             if($this->isAlreadyExist()){
@@ -92,3 +156,4 @@
             }
         }
     }
+?>
