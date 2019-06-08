@@ -220,11 +220,13 @@
             WHERE
                 company_id='".$this->company_id."' AND position='admin'";
 
-            $result = $this->conn->query($query);
-
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)){
-                mail($row['email'], $subject, $content, $headers);
-            }
+            $stmt = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_LAST);
+            do {
+                mail($row[4], $subject, $content, $headers);
+            } while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_PRIOR));
+            
             return true;
         }
     }
