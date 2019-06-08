@@ -14,6 +14,7 @@
         public $position;
         public $address;
         public $sex;
+        public $active;
      
         // constructor with $db as database connection
         public function __construct($db){
@@ -52,6 +53,11 @@
             $this->sex = $sex;
         }
 
+        public function set_active($active) {
+            $this->active = $active;
+        }
+
+        // get
         public function get_id() {
             return $this->id;
         }
@@ -84,6 +90,10 @@
             return $this->sex;
         }
 
+        public function get_active() {
+            return $this->active;
+        }
+
         // signup user
         function signup(){
             if($this->isAlreadyExist()){
@@ -93,7 +103,7 @@
             $query = "INSERT INTO
                         ".$this->table_name." 
                         SET
-                        id=:id, firstname=:firstname, lastname=:lastname, password=:password, email=:email, position=:position, address=:address, sex=:sex";
+                        id=:id, firstname=:firstname, lastname=:lastname, password=:password, email=:email, position=:position, address=:address, sex=:sex, active=0";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
@@ -116,7 +126,10 @@
             $stmt->bindParam(":sex", $this->sex);
             // execute query
             if($stmt->execute()){
-                return true;
+                if($this->sendEmail()) {
+                    return true;
+                }
+                return false;
             }
             return false;
         }
@@ -128,12 +141,29 @@
             FROM
                 " . $this->table_name . " 
             WHERE
-                email='".$this->email."' AND password='".$this->password."'";
+                email='".$this->email."' AND password='".$this->password."' AND active='1'";
             // prepare query statement
             $stmt = $this->conn->prepare($query);
             // execute query
             $stmt->execute();
             return $stmt;
+        }
+
+        function activeUser() {
+            if($this->isAlreadyExist()){
+                return false;
+            }
+
+            $query = "UPDATE " . $this->table_name . " SET active = '1' WHERE id='".$this->id."'";
+
+            // prepare query statement
+            $stmt = $this->conn->prepare($query);
+
+            // execute query
+            if($stmt->execute()){
+                return true;
+            }
+            return false;
         }
         
         // a function to check if email already exists
@@ -153,6 +183,28 @@
             else{
                 return false;
             }
+        }
+
+        function sendEmail() {
+            $actual_link = "https://sport-analytic.000webhostapp.com/api/user/active_email.php?id=" . $this->id;
+            $subject = "User Registration Activation Email";
+            $content = "<html>
+                        <head>
+                        <title>User activation</title>
+                        </head>
+                        <body>
+                        <h1 align=\"center\">Sport Analytic</h1>
+                        <h2 align=\"center\">User account activation</h2>
+                        <p align=\"center\">Click this link to activate your account. <a href='" . $actual_link . "'>" . $actual_link . "</a></p>
+                        </body>
+                        </html>";
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= "From: josdudas@gmail.com\r\n";
+            if(mail($this->email, $subject, $content, $headers)) {
+                return true;
+            }
+            return false;
         }
     }
 ?>
