@@ -20,6 +20,7 @@
      $user->set_position(isset($_GET['position']) ? $_GET['position'] : '');
      $user->set_address(isset($_GET['address']) ? $_GET['address'] : '');
      $user->set_sex(isset($_GET['sex']) ? $_GET['sex'] : '');
+     $user->set_company_id(isset($_GET['company_id']) ? $_GET['company_id'] : '');
       
      // create the user
      if($user->signup()){

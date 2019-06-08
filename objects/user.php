@@ -15,6 +15,7 @@
         public $address;
         public $sex;
         public $active;
+        public $company_id;
      
         // constructor with $db as database connection
         public function __construct($db){
@@ -57,6 +58,10 @@
             $this->active = $active;
         }
 
+        public function set_company_id($company_id) {
+            $this->company_id = $company_id;
+        }
+
         // get
         public function get_id() {
             return $this->id;
@@ -94,6 +99,10 @@
             return $this->active;
         }
 
+        public function get_company_id() {
+            return $this->company_id;
+        }
+
         // signup user
         function signup(){
             if($this->isAlreadyExist()){
@@ -103,7 +112,7 @@
             $query = "INSERT INTO
                         ".$this->table_name." 
                         SET
-                        id=:id, firstname=:firstname, lastname=:lastname, password=:password, email=:email, position=:position, address=:address, sex=:sex, active=0";
+                        id=:id, firstname=:firstname, lastname=:lastname, password=:password, email=:email, position=:position, address=:address, sex=:sex, active=0, company_id=:company_id";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
@@ -115,6 +124,7 @@
             $this->position=htmlspecialchars(strip_tags($this->position));
             $this->address=htmlspecialchars(strip_tags($this->address));
             $this->sex=htmlspecialchars(strip_tags($this->sex));
+            $this->company_id=htmlspecialchars(strip_tags($this->company_id));
             // bind values
             $stmt->bindParam(":id", $this->id);
             $stmt->bindParam(":firstname", $this->firstname);
@@ -124,6 +134,7 @@
             $stmt->bindParam(":position", $this->position);
             $stmt->bindParam(":address", $this->address);
             $stmt->bindParam(":sex", $this->sex);
+            $stmt->bindParam(":company_id", $this->company_id);
             // execute query
             if($stmt->execute()){
                 if($this->sendEmail()) {
@@ -194,17 +205,27 @@
                         </head>
                         <body>
                         <h1 align=\"center\">Sport Analytic</h1>
-                        <h2 align=\"center\">User account activation</h2>
-                        <p align=\"center\">Click this link to activate your account. <a href='" . $actual_link . "'>" . $actual_link . "</a></p>
+                        <h2 align=\"center\">User ".$this->firstname." ".$this->lastname." account activation</h2>
+                        <p align=\"center\">Click this link to activate ".$this->firstname." ".$this->lastname." account. 
+                        <a href='" . $actual_link . "'>" . $actual_link . "</a></p>
                         </body>
                         </html>";
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
             $headers .= "From: josdudas@gmail.com\r\n";
-            if(mail($this->email, $subject, $content, $headers)) {
-                return true;
+
+            $query = "SELECT *
+            FROM
+                ".$this->table_name." 
+            WHERE
+                company_id='".$this->company_id."' AND position='admin'";
+
+            $result = $this->conn->query($query);
+
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)){
+                mail($row['email'], $subject, $content, $headers);
             }
-            return false;
+            return true;
         }
     }
 ?>
