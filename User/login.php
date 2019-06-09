@@ -28,7 +28,8 @@
             "email" => $row['email'],
             "position" => $row['position'],
             "address" => $row['address'],
-            "sex" => $row['sex']
+            "sex" => $row['sex'],
+            "company_id" => $row['company_id']
         );
     } else{
         $user_arr=array(

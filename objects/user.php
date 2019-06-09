@@ -148,7 +148,7 @@
         function login(){
             // select all query
             $query = "SELECT
-                `id`, `firstname`, `lastname`, `password`, `email`, `position`, `address`, `sex`
+                `id`, `firstname`, `lastname`, `password`, `email`, `position`, `address`, `sex`, `company_id`
             FROM
                 " . $this->table_name . " 
             WHERE
