@@ -1,5 +1,5 @@
 <?php
-    class Company{
+    class Report{
      
         // database connection and table name
         private $conn;

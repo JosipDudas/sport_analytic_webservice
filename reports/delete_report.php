@@ -11,7 +11,7 @@
       
      $report->set_id(isset($_GET['id']) ? $_GET['id'] : '');
       
-     if($report->deleteTeport()){
+     if($report->deleteReport()){
          $report_arr=array(
             "status" => true,
             "message" => "Successfully delete report!",

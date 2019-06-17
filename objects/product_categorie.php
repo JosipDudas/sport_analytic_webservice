@@ -1,5 +1,5 @@
 <?php
-    class Company{
+    class ProductCategorie{
      
         // database connection and table name
         private $conn;

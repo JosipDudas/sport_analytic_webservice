@@ -1,14 +1,15 @@
 <?php
-    class Product{
+    class ReportItem{
      
         // database connection and table name
         private $conn;
-        private $table_name = "products";
+        private $table_name = "report_items";
      
         // object properties
         public $id;
-        public $name;
-        public $categorie_id;
+        public $report_id;
+        public $product_id;
+        public $quantity;
      
         // constructor with $db as database connection
         public function __construct($db){
@@ -19,12 +20,16 @@
             $this->id = $id;
         }
 
-        public function set_name($name) {
-            $this->name = $name;
+        public function set_report_id($report_id) {
+            $this->report_id = $report_id;
         }
 
-        public function set_categorie_id($categorie_id) {
-            $this->categorie_id = $categorie_id;
+        public function set_product_id($product_id) {
+            $this->product_id = $product_id;
+        }
+
+        public function set_quantity($quantity) {
+            $this->quantity = $quantity;
         }
 
         // get
@@ -32,40 +37,46 @@
             return $this->id;
         }
 
-        public function get_name() {
-            return $this->name;
+        public function get_report_id() {
+            return $this->report_id;
         }
 
-        public function get_categorie_id() {
-            return $this->categorie_id;
+        public function get_product_id() {
+            return $this->product_id;
         }
 
-        function getAllProductForSpecificCategorie(){
+        public function get_quantity() {
+            return $this->quantity;
+        }
+
+        function getAllReportItemsForSpecificReports(){
             // select all query
             $query = "SELECT
                 *
             FROM
-                " . $this->table_name . " WHERE categorie_id='".$this->categorie_id."'";
+                " . $this->table_name . " WHERE report_id='".$this->report_id."'";
             $stmt = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
             $stmt->execute();
             return $stmt;
         }
 
-        function insertProduct() {
+        function insertReportItems() {
             $query = "INSERT INTO
                         ".$this->table_name." 
                         SET
-                        id=:id, name=:name, categorie_id=:categorie_id";
+                        id=:id, report_id=:report_id, product_id=:product_id, quantity=:quantity";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
             $this->id=htmlspecialchars(strip_tags($this->id));
-            $this->name=htmlspecialchars(strip_tags($this->name));
-            $this->categorie_id=htmlspecialchars(strip_tags($this->categorie_id));
+            $this->report_id=htmlspecialchars(strip_tags($this->report_id));
+            $this->product_id=htmlspecialchars(strip_tags($this->product_id));
+            $this->quantity=htmlspecialchars(strip_tags($this->quantity));
             // bind values
             $stmt->bindParam(":id", $this->id);
-            $stmt->bindParam(":name", $this->name);
-            $stmt->bindParam(":categorie_id", $this->categorie_id);
+            $stmt->bindParam(":report_id", $this->report_id);
+            $stmt->bindParam(":product_id", $this->product_id);
+            $stmt->bindParam(":quantity", $this->quantity);
             // execute query
             if($stmt->execute()){
                 return true;
@@ -73,7 +84,7 @@
             return false;
         }
 
-        function deleteProduct() {
+        function deleteReportItems() {
             $query = "DELETE FROM
                         ".$this->table_name." 
                         WHERE 
@@ -91,20 +102,22 @@
             return false;
         }
 
-        function updateProduct() {
-            $query = "UPDATE ".$this->table_name." 
+        function updateReportItems() {
+            $query = "Update ".$this->table_name." 
                         SET
-                        id=:id, name=:name, categorie_id=:categorie_id WHERE id=:id";
+                        id=:id, report_id=:report_id, product_id=:product_id, quantity=:quantity WHERE id=:id";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
             $this->id=htmlspecialchars(strip_tags($this->id));
-            $this->name=htmlspecialchars(strip_tags($this->name));
-            $this->categorie_id=htmlspecialchars(strip_tags($this->categorie_id));
+            $this->report_id=htmlspecialchars(strip_tags($this->report_id));
+            $this->product_id=htmlspecialchars(strip_tags($this->product_id));
+            $this->quantity=htmlspecialchars(strip_tags($this->quantity));
             // bind values
             $stmt->bindParam(":id", $this->id);
-            $stmt->bindParam(":name", $this->name);
-            $stmt->bindParam(":categorie_id", $this->categorie_id);
+            $stmt->bindParam(":report_id", $this->report_id);
+            $stmt->bindParam(":product_id", $this->product_id);
+            $stmt->bindParam(":quantity", $this->quantity);
             // execute query
             if($stmt->execute()){
                 return true;
