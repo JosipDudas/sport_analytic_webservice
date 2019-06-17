@@ -3,7 +3,7 @@
      
         // database connection and table name
         private $conn;
-        private $table_name = "users";
+        private $table_name = "user";
      
         // object properties
         public $id;

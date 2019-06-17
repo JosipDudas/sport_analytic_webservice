@@ -1,8 +1,7 @@
 <?php
-     
      // get database connection
      include_once '../config/database.php';
-    
+      
      include_once '../objects/location.php';
       
      $database = new Database();
@@ -11,14 +10,11 @@
      $location = new Location($db);
       
      $location->set_id(isset($_GET['id']) ? $_GET['id'] : '');
-     $location->set_name(isset($_GET['name']) ? $_GET['name'] : '');
-     $location->set_description(isset($_GET['description']) ? $_GET['description'] : '');
-     $location->set_company_id(isset($_GET['company_id']) ? $_GET['company_id'] : '');
       
-     if($location->insertLocation()){
+     if($location->deleteLocation()){
          $location_arr=array(
             "status" => true,
-            "message" => "Successfully insert location!",
+            "message" => "Successfully delete location!",
             "id" => $location->get_id(),
             "name" => $location->get_name(),
             "description" => $location->get_description(),
@@ -28,7 +24,7 @@
      else{
          $location_arr=array(
              "status" => false,
-             "message" => "Insert location failed!"
+             "message" => "Delete location failed!"
          );
      }
      print_r(json_encode($location_arr));

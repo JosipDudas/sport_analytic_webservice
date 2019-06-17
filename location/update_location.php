@@ -15,10 +15,10 @@
      $location->set_description(isset($_GET['description']) ? $_GET['description'] : '');
      $location->set_company_id(isset($_GET['company_id']) ? $_GET['company_id'] : '');
       
-     if($location->insertLocation()){
+     if($location->updateLocation()){
          $location_arr=array(
             "status" => true,
-            "message" => "Successfully insert location!",
+            "message" => "Successfully update location!",
             "id" => $location->get_id(),
             "name" => $location->get_name(),
             "description" => $location->get_description(),
@@ -28,7 +28,7 @@
      else{
          $location_arr=array(
              "status" => false,
-             "message" => "Insert location failed!"
+             "message" => "Update location failed!"
          );
      }
      print_r(json_encode($location_arr));
