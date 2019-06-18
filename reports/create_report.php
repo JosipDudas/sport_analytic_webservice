@@ -3,7 +3,7 @@
      // get database connection
      include_once '../config/database.php';
     
-     include_once '../objects/reports.php';
+     include_once '../objects/report.php';
       
      $database = new Database();
      $db = $database->getConnection();
