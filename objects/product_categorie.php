@@ -53,7 +53,7 @@
             return $this->address;
         }
 
-        function getAllProductsForSpecificLocation(){
+        function getAllProductCategoriesForSpecificLocation(){
             // select all query
             $query = "SELECT
                 *

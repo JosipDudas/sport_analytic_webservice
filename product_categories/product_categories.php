@@ -11,7 +11,7 @@
 
     $productCategorie->set_location_id(isset($_GET['location_id']) ? $_GET['location_id'] : die());
 
-    $stmt = $productCategorie->getAllProductCategoriesForSpecificCompany();
+    $stmt = $productCategorie->getAllProductCategoriesForSpecificLocation();
 
     if($stmt->rowCount() > 0){
         $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_LAST);
