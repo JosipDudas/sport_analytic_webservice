@@ -9,9 +9,6 @@
         public $id;
         public $product_id;
         public $reservation_id;
-        public $from;
-        public $to;
-        public $quantity;
      
         // constructor with $db as database connection
         public function __construct($db){
@@ -30,18 +27,6 @@
             $this->reservation_id = $reservation_id;
         }
 
-        public function set_from($from) {
-            $this->from = $from;
-        }
-
-        public function set_to($to) {
-            $this->to = $to;
-        }
-
-        public function set_quantity($quantity) {
-            $this->quantity = $quantity;
-        }
-
         // get
         public function get_id() {
             return $this->id;
@@ -53,19 +38,7 @@
 
         public function get_reservation_id() {
             return $this->reservation_id;
-        }
-
-        public function get_from() {
-            return $this->from;
-        }
-
-        public function get_to() {
-            return $this->to;
-        }
-
-        public function get_quantity() {
-            return $this->quantity;
-        }
+        } 
 
         function getAllReservationItemsForSpecificReservation(){
             // select all query
@@ -82,23 +55,17 @@
             $query = "INSERT INTO
                         ".$this->table_name." 
                         SET
-                        id=:id, product_id=:product_id, reservation_id=:reservation_id, from=:from, to=:to, quantity=:quantity";
+                        id=:id, product_id=:product_id, reservation_id=:reservation_id";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
             $this->id=htmlspecialchars(strip_tags($this->id));
             $this->product_id=htmlspecialchars(strip_tags($this->product_id));
             $this->reservation_id=htmlspecialchars(strip_tags($this->reservation_id));
-            $this->from=htmlspecialchars(strip_tags($this->from));
-            $this->to=htmlspecialchars(strip_tags($this->to));
-            $this->quantity=htmlspecialchars(strip_tags($this->quantity));
             // bind values
             $stmt->bindParam(":id", $this->id);
             $stmt->bindParam(":product_id", $this->product_id);
             $stmt->bindParam(":reservation_id", $this->reservation_id);
-            $stmt->bindParam(":from", $this->from);
-            $stmt->bindParam(":to", $this->to);
-            $stmt->bindParam(":quantity", $this->quantity);
             // execute query
             if($stmt->execute()){
                 return true;
@@ -127,23 +94,17 @@
         function updateReservationItem() {
             $query = "UPDATE ".$this->table_name." 
                         SET
-                        id=:id, product_id=:product_id, reservation_id=:reservation_id, from=:from, to=:to, quantity=:quantity WHERE id=:id";
+                        id=:id, product_id=:product_id, reservation_id=:reservation_id WHERE id=:id";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
             $this->id=htmlspecialchars(strip_tags($this->id));
             $this->product_id=htmlspecialchars(strip_tags($this->product_id));
             $this->reservation_id=htmlspecialchars(strip_tags($this->reservation_id));
-            $this->from=htmlspecialchars(strip_tags($this->from));
-            $this->to=htmlspecialchars(strip_tags($this->to));
-            $this->quantity=htmlspecialchars(strip_tags($this->quantity));
             // bind values
             $stmt->bindParam(":id", $this->id);
             $stmt->bindParam(":product_id", $this->product_id);
             $stmt->bindParam(":reservation_id", $this->reservation_id);
-            $stmt->bindParam(":from", $this->from);
-            $stmt->bindParam(":to", $this->to);
-            $stmt->bindParam(":quantity", $this->quantity);
             // execute query
             if($stmt->execute()){
                 return true;

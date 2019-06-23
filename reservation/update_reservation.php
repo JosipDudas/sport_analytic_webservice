@@ -11,16 +11,18 @@
      $reservation = new Reservation($db);
       
      $reservation->set_id(isset($_GET['id']) ? $_GET['id'] : '');
-     $reservation->set_date(isset($_GET['date']) ? $_GET['date'] : '');
+     $reservationItem->set_from(isset($_GET['from']) ? $_GET['from'] : '');
+     $reservationItem->set_to(isset($_GET['to']) ? $_GET['to'] : '');
      $reservation->set_location_id(isset($_GET['location_id']) ? $_GET['location_id'] : '');
-     reservation->set_description(isset($_GET['description']) ? $_GET['description'] : '');
+     $reservation->set_description(isset($_GET['description']) ? $_GET['description'] : '');
       
      if($reservation->updateReservation()){
          $reservation_arr=array(
             "status" => true,
             "message" => "Successfully update reservation!",
             "id" => $reservation->get_id(),
-            "date" => $reservation->get_date(),
+            "from" => $reservationItem->get_from(),
+            "to" => $reservationItem->get_to(),
             "location_id" => $reservation->get_location_id(),
             "description" => $reservation->get_description()
          );

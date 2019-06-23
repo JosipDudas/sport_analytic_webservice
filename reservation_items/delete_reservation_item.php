@@ -17,10 +17,7 @@
             "message" => "Successfully delete reservation item!",
             "id" => $reservationItem->get_id(),
             "product_id" => $reservationItem->get_product_id(),
-            "reservation_id" => $reservationItem->get_reservation_id(),
-            "from" => $reservationItem->get_from(),
-            "to" => $reservationItem->get_to(),
-            "quantity" => $reservationItem->get_quantity()
+            "reservation_id" => $reservationItem->get_reservation_id()
          );
      }
      else{

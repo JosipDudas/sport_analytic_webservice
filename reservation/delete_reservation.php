@@ -16,7 +16,8 @@
             "status" => true,
             "message" => "Successfully delete reservation!",
             "id" => $reservation->get_id(),
-            "date" => $reservation->get_date(),
+            "from" => $reservationItem->get_from(),
+            "to" => $reservationItem->get_to(),
             "location_id" => $reservation->get_location_id(),
             "description" => $reservation->get_description()
          );

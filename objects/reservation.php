@@ -7,7 +7,8 @@
      
         // object properties
         public $id;
-        public $date;
+        public $from;
+        public $to;
         public $location_id;
         public $description;
      
@@ -20,8 +21,12 @@
             $this->id = $id;
         }
 
-        public function set_date($date) {
-            $this->date = $date;
+        public function set_from($from) {
+            $this->from = $from;
+        }
+
+        public function set_to($to) {
+            $this->to = $to;
         }
 
         public function set_location_id($location_id) {
@@ -37,8 +42,12 @@
             return $this->id;
         }
 
-        public function get_date() {
-            return $this->date;
+        public function get_from() {
+            return $this->from;
+        }
+
+        public function get_to() {
+            return $this->to;
         }
 
         public function get_location_id() {
@@ -64,17 +73,19 @@
             $query = "INSERT INTO
                         ".$this->table_name." 
                         SET
-                        id=:id, date=:date, location_id=:location_id";
+                        id=:id, date=:date, location_id=:location_id, from=:from, to=:to";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
             $this->id=htmlspecialchars(strip_tags($this->id));
-            $this->date=htmlspecialchars(strip_tags($this->date));
+            $this->from=htmlspecialchars(strip_tags($this->from));
+            $this->to=htmlspecialchars(strip_tags($this->to));
             $this->location_id=htmlspecialchars(strip_tags($this->location_id));
             $this->description=htmlspecialchars(strip_tags($this->description));
             // bind values
             $stmt->bindParam(":id", $this->id);
-            $stmt->bindParam(":date", $this->date);
+            $stmt->bindParam(":from", $this->from);
+            $stmt->bindParam(":to", $this->to);
             $stmt->bindParam(":location_id", $this->location_id);
             $stmt->bindParam(":description", $this->description);
             // execute query
@@ -105,17 +116,19 @@
         function updateReservation() {
             $query = "UPDATE ".$this->table_name." 
                         SET
-                        id=:id, date=:date, location_id=:location_id, description=:description WHERE id=:id";
+                        id=:id, date=:date, location_id=:location_id, description=:description, from=:from, to=:to WHERE id=:id";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
             $this->id=htmlspecialchars(strip_tags($this->id));
-            $this->date=htmlspecialchars(strip_tags($this->date));
+            $this->from=htmlspecialchars(strip_tags($this->from));
+            $this->to=htmlspecialchars(strip_tags($this->to));
             $this->location_id=htmlspecialchars(strip_tags($this->location_id));
             $this->description=htmlspecialchars(strip_tags($this->description));
             // bind values
             $stmt->bindParam(":id", $this->id);
-            $stmt->bindParam(":date", $this->date);
+            $stmt->bindParam(":from", $this->from);
+            $stmt->bindParam(":to", $this->to);
             $stmt->bindParam(":location_id", $this->location_id);
             $stmt->bindParam(":description", $this->description);
             // execute query
