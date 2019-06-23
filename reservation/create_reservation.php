@@ -13,6 +13,7 @@
      $reservation->set_id(isset($_GET['id']) ? $_GET['id'] : '');
      $reservation->set_date(isset($_GET['date']) ? $_GET['date'] : '');
      $reservation->set_location_id(isset($_GET['location_id']) ? $_GET['location_id'] : '');
+     $reservation->set_description(isset($_GET['description']) ? $_GET['description'] : '');
       
      if($reservation->insertReservation()){
          $reservation_arr=array(
@@ -20,7 +21,8 @@
             "message" => "Successfully insert reservation!",
             "id" => $reservation->get_id(),
             "date" => $reservation->get_date(),
-            "location_id" => $reservation->get_location_id()
+            "location_id" => $reservation->get_location_id(),
+            "description" => $reservation->get_description()
          );
      }
      else{

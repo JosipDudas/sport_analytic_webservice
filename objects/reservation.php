@@ -9,6 +9,7 @@
         public $id;
         public $date;
         public $location_id;
+        public $description;
      
         // constructor with $db as database connection
         public function __construct($db){
@@ -27,6 +28,10 @@
             $this->location_id = $location_id;
         }
 
+        public function set_description($description) {
+            $this->description = $description;
+        }
+
         // get
         public function get_id() {
             return $this->id;
@@ -38,6 +43,10 @@
 
         public function get_location_id() {
             return $this->location_id;
+        }
+
+        public function get_description() {
+            return $this->description;
         }
 
         function getAllReservationForSpecificLocation(){
@@ -62,10 +71,12 @@
             $this->id=htmlspecialchars(strip_tags($this->id));
             $this->date=htmlspecialchars(strip_tags($this->date));
             $this->location_id=htmlspecialchars(strip_tags($this->location_id));
+            $this->description=htmlspecialchars(strip_tags($this->description));
             // bind values
             $stmt->bindParam(":id", $this->id);
             $stmt->bindParam(":date", $this->date);
             $stmt->bindParam(":location_id", $this->location_id);
+            $stmt->bindParam(":description", $this->description);
             // execute query
             if($stmt->execute()){
                 return true;
@@ -94,17 +105,19 @@
         function updateReservation() {
             $query = "UPDATE ".$this->table_name." 
                         SET
-                        id=:id, date=:date, location_id=:location_id WHERE id=:id";
+                        id=:id, date=:date, location_id=:location_id, description=:description WHERE id=:id";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
             $this->id=htmlspecialchars(strip_tags($this->id));
             $this->date=htmlspecialchars(strip_tags($this->date));
             $this->location_id=htmlspecialchars(strip_tags($this->location_id));
+            $this->description=htmlspecialchars(strip_tags($this->description));
             // bind values
             $stmt->bindParam(":id", $this->id);
             $stmt->bindParam(":date", $this->date);
             $stmt->bindParam(":location_id", $this->location_id);
+            $stmt->bindParam(":description", $this->description);
             // execute query
             if($stmt->execute()){
                 return true;

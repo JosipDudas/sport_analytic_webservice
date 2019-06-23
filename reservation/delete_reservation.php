@@ -17,7 +17,8 @@
             "message" => "Successfully delete reservation!",
             "id" => $reservation->get_id(),
             "date" => $reservation->get_date(),
-            "location_id" => $reservation->get_location_id()
+            "location_id" => $reservation->get_location_id(),
+            "description" => $reservation->get_description()
          );
      }
      else{

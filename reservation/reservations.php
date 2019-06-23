@@ -20,7 +20,8 @@
             array_push($reservations, array(
                 "id" => $row[0],
                 "date" => $row[1],
-                "location_id" => $row[2]
+                "location_id" => $row[2],
+                "description" => $row[3]
             ));
         } while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_PRIOR));
 
