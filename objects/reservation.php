@@ -73,7 +73,7 @@
             $query = "INSERT INTO
                         ".$this->table_name." 
                         SET
-                        id=:id, date=:date, location_id=:location_id, from=:from, to=:to";
+                         reservations.id=:id,  reservations.location_id=:location_id,  reservations.from=:from,  reservations.to=:to,  reservations.description=:description";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
@@ -116,7 +116,7 @@
         function updateReservation() {
             $query = "UPDATE ".$this->table_name." 
                         SET
-                        id=:id, date=:date, location_id=:location_id, description=:description, from=:from, to=:to WHERE id=:id";
+                         reservations.id=:id,  reservations.location_id=:location_id,  reservations.description=:description,  reservations.from=:from,  reservations.to=:to WHERE id=:id";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize

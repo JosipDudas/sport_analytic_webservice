@@ -20,7 +20,7 @@
             "message" => "Successfully insert reservation item!",
             "id" => $reservationItem->get_id(),
             "product_id" => $reservationItem->get_product_id(),
-            "reservation_id" => $reservationItem->reservation_id(),
+            "reservation_id" => $reservationItem->get_reservation_id(),
          );
      }
      else{
