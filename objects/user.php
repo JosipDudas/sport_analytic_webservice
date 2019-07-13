@@ -13,7 +13,7 @@
         public $email;
         public $position;
         public $address;
-        public $sex;
+        public $gender;
         public $active;
         public $company_id;
      
@@ -50,8 +50,8 @@
             $this->address = $address;
         }
 
-        public function set_sex($sex) {
-            $this->sex = $sex;
+        public function set_gender($gender) {
+            $this->gender = $gender;
         }
 
         public function set_active($active) {
@@ -91,8 +91,8 @@
             return $this->address;
         }
 
-        public function get_sex() {
-            return $this->sex;
+        public function get_gender() {
+            return $this->gender;
         }
 
         public function get_active() {
@@ -112,7 +112,7 @@
             $query = "INSERT INTO
                         ".$this->table_name." 
                         SET
-                        id=:id, firstname=:firstname, lastname=:lastname, password=:password, email=:email, position=:position, address=:address, sex=:sex, active=0, company_id=:company_id";
+                        id=:id, firstname=:firstname, lastname=:lastname, password=:password, email=:email, position=:position, address=:address, gender=:gender, active=0, company_id=:company_id";
             // prepare query
             $stmt = $this->conn->prepare($query);
             // sanitize
@@ -123,7 +123,7 @@
             $this->email=htmlspecialchars(strip_tags($this->email));
             $this->position=htmlspecialchars(strip_tags($this->position));
             $this->address=htmlspecialchars(strip_tags($this->address));
-            $this->sex=htmlspecialchars(strip_tags($this->sex));
+            $this->gender=htmlspecialchars(strip_tags($this->gender));
             $this->company_id=htmlspecialchars(strip_tags($this->company_id));
             // bind values
             $stmt->bindParam(":id", $this->id);
@@ -133,7 +133,7 @@
             $stmt->bindParam(":email", $this->email);
             $stmt->bindParam(":position", $this->position);
             $stmt->bindParam(":address", $this->address);
-            $stmt->bindParam(":sex", $this->sex);
+            $stmt->bindParam(":gender", $this->gender);
             $stmt->bindParam(":company_id", $this->company_id);
             // execute query
             if($stmt->execute()){
@@ -148,7 +148,7 @@
         function login(){
             // select all query
             $query = "SELECT
-                `id`, `firstname`, `lastname`, `password`, `email`, `position`, `address`, `sex`, `company_id`
+                `id`, `firstname`, `lastname`, `password`, `email`, `position`, `address`, `gender`, `company_id`
             FROM
                 " . $this->table_name . " 
             WHERE

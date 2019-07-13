@@ -19,7 +19,7 @@
      $user->set_email(isset($_GET['email']) ? $_GET['email'] : '');
      $user->set_position(isset($_GET['position']) ? $_GET['position'] : '');
      $user->set_address(isset($_GET['address']) ? $_GET['address'] : '');
-     $user->set_sex(isset($_GET['sex']) ? $_GET['sex'] : '');
+     $user->set_gender(isset($_GET['gender']) ? $_GET['gender'] : '');
      $user->set_company_id(isset($_GET['company_id']) ? $_GET['company_id'] : '');
       
      // create the user
@@ -34,7 +34,7 @@
             "email" => $user->get_email(),
             "position" => $user->get_position(),
             "address" => $user->get_address(),
-            "sex" => $user->get_sex()
+            "gender" => $user->get_gender()
          );
      }
      else{

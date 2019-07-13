@@ -28,7 +28,7 @@
             "email" => $row['email'],
             "position" => $row['position'],
             "address" => $row['address'],
-            "sex" => $row['sex'],
+            "gender" => $row['gender'],
             "company_id" => $row['company_id']
         );
     } else{
